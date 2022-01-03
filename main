@@ -1,0 +1,295 @@
+#include <stdio.h>
+#include<string.h>
+int count =0;
+int countsee=0;//help variable to get the number of the user
+int arr[1]={0};//help array
+char UsersForm[200][9][20]={{0,0,0},{0,0,0},{0,0,0}};
+int UsersFormmoney[200][1]={{0},{0}};
+void NewAccount();//1
+void ViewList();//2
+void SearchUser();//3
+void Check();//help function
+void CheckSearchUser();//help function
+void see();//4
+void edit();//5
+void transact();//6
+void erase();
+void sort();//7
+void SortSee(char[]);
+int countN=0;
+int main()
+{
+    puts("welcome to our bank");
+    int x=0;
+    puts("if your are a user write 1 if your an manager write 2");
+    scanf("%d",&arr[0]);
+    Check(arr);
+    //printf("%d",arr[0]);
+    if(arr[0]==1){
+        arr[0]=0;
+        puts("hello for sign up write 1,sign in write 2. ");
+        scanf("%d",&arr);
+        Check(arr);
+        if(arr[0]==1){//sign up//NewAccount()
+            NewAccount();
+            //SearchUSer();
+        }else{//sign in
+            printf(" hello!,our bank have many operations for you for \n view your information write 1\n edit your information write 2\n deposit or withdraw money write 3\n delete your account write 4\n see your information write 5\n");
+            arr[0]=0;
+            scanf("%d",&arr);
+            while((arr[0]!=1)&&(arr[0]!=2)&&(arr[0]!=3)&&(arr[0]!=4)&&(arr[0]!=5)){
+            puts("your choice isn't exist please write again your choice");
+            scanf("%d",&arr[0]);
+            }
+            if(arr[0]==1){
+                //ViewList();
+            }else if(arr[0]==2){
+                edit();
+            }else if(arr[0]==3){
+                transact();
+            }else if(arr[0]==4){
+                erase();
+            }else{
+                see();
+            }
+        }
+        printf("to return to the main list press 1 ,to end your operations press 2\n");
+        arr[0]=0;
+        scanf("%d",&arr);
+        Check(arr);
+        if(arr[0]==1){
+            main();
+        }else
+            return 0;
+    }
+    else if(arr[0]==2){
+        printf(" hello manager!\n for search about an user account press 1\n for sort users account by name press 2\n");
+        arr[0]=0;
+        scanf("%d",&arr);
+        Check(arr);
+        if(arr[0]==1){
+            SearchUser();
+        }else{
+            sort();
+        }
+        printf("to return to the main list press 1 ,to end your operations press 2\n");
+        arr[0]=0;
+        scanf("%d",&arr);
+        Check(arr);
+        if(arr[0]==1)
+            main();
+        else{
+            puts("thank you to choose our bank");
+            return 0;
+        }
+    }
+}
+void NewAccount(){
+    while (UsersForm[countN][0][0]!=0){
+    countN++;
+}
+    printf("please enter your first name\n");
+    char ArrNewTest[20]={0};
+    unsigned int ArrNewTestmoney[1];
+    int i=0,j=0;
+    scanf("%s",ArrNewTest);
+    for(j=0;ArrNewTest[j]!='\0';++j)
+        UsersForm[countN][0][j]=ArrNewTest[j];
+    printf("please enter your last name\n");
+    //ArrNewTest[20]={0};
+    scanf("%s",ArrNewTest);
+    for(j=0;ArrNewTest[j]!='\0';++j)
+        UsersForm[countN][1][j]=ArrNewTest[j];
+    printf("please enter your phone number\n");
+    //ArrNewTest[20]={0};
+    scanf("%s",ArrNewTest);
+    for(j=0;ArrNewTest[j]!='\0';++j)
+        UsersForm[countN][2][j]=ArrNewTest[j];
+    printf("please enter your citizen number\n");
+    //ArrNewTest[20]={0};
+    scanf("%s",ArrNewTest);
+    for(j=0;ArrNewTest[j]!='\0';++j)
+        UsersForm[countN][3][j]=ArrNewTest[j];
+    printf("please enter your adress\n");
+    //ArrNewTest[20]={0};
+    scanf("%s",ArrNewTest);
+    for(j=0;ArrNewTest[j]!='\0';++j)
+        UsersForm[countN][4][j]=ArrNewTest[j];
+    printf("please enter your date of birth\n");
+    //ArrNewTest[20]={0};
+    scanf("%s",ArrNewTest);
+    for(j=0;ArrNewTest[j]!='\0';++j)
+        UsersForm[countN][5][j]=ArrNewTest[j];
+    /*for(j=0;ArrNewTestmoney[j]!='\0';++j)
+        UsersFormmoney[countsee][0]=ArrNewTestmoney[j];
+*/}
+void Check(){
+    if((arr[0]!=1)&&(arr[0]!=2)){
+        printf("your choice isn't exist please write again your choice\n");
+        scanf("%d",&arr[0]);
+        Check(arr);
+    }
+    else
+        return ;
+}//UsersForm[0][i][j] **i=1,3**
+void SearchUser(){
+    int i=0;
+    countsee=0;
+    char arrsearch[20];
+    printf("please enter your first name\n");
+    scanf("%s",arrsearch);
+    while ((UsersForm[countsee][0][0]!=arrsearch[0])&&(UsersForm[countsee][0][0]!=0)){
+    countsee++;
+    }
+    if(UsersForm[countsee][0][0]==0){
+        CheckSearchUser();
+        return;
+    }
+    for(i=1;arrsearch[i]!='\0';++i){
+        if(UsersForm[countsee][0][i]!=arrsearch[i]){
+            CheckSearchUser();
+            return;
+        }else
+            continue;
+        }
+    }
+void CheckSearchUser(){
+        int arr[0];
+        printf("this name isn't exist for a main press 1 to return to new account\n list press 2");
+        scanf("%d",&arr[0]);
+        Check();
+        if(arr[0]==1)
+            main();
+        else if(arr[0]==2)
+            NewAccount();
+}//
+void see() {
+    SearchUser();
+    int i=0,j=0;
+    for(i=0;i<6;++i){
+        for(j=0;UsersForm[countsee][i][j]!='\0';++j){
+            printf("%c",UsersForm[countsee][i][j]);
+        }
+        printf("\t");
+    }
+    printf("%d\n",UsersFormmoney[countsee][0]);
+}
+void erase(){
+    see();
+    int i=0 , j=0;
+    arr[0]=0;
+    puts("this your information");
+    printf("for delete your account press 1:\nfor return to main list press 2:\n  ");
+    scanf("%d",&arr[0]);
+    if (arr[0]=1){
+            for(i=0; i<6; ++i){
+               for(j=0; UsersForm[countsee][i][j]!='\0'; ++j)
+                  //printf("%c",UsersForm[countsee][i][j]);
+                  UsersForm[countsee][i][j]=-1;
+            }
+    puts("\t(your account has been deleted.)");
+     /*for(i=0; i<6; ++i){
+            for(j=0; UsersForm[countsee][i][j]!='\0'; ++j){
+                printf("%c",UsersForm[countsee][i][j]);
+            }
+            printf("\t");
+        }*/
+
+   }else{
+       main();
+   }
+}
+void edit(){
+    int choice=0,i=0,j=0;
+    char nadd[25]={0};
+    char nmob[25]={0};
+    see();
+    puts("This is your information");
+    printf("Which information do you want to change?\n for Address press 1,for phone number press 2.\n");
+    arr[0]=0;
+    scanf("%d",&arr[0]);
+    Check();
+    if(arr[0]==1){
+        printf("Enter the new address:");
+        scanf("%s",nadd);
+        for(j=0; nadd[j]!='\0'; ++j)
+            UsersForm[countsee][4][j]=nadd[j];
+        for(i=0; i<6; ++i){
+            for(j=0; UsersForm[countsee][i][j]!='\0'; ++j)
+                printf("%c",UsersForm[countsee][i][j]);
+            printf("\t");
+        }
+        printf("Changes saved!");
+    }else if(arr[0]==2){
+        printf("Enter the new phone number:");
+        scanf("%s",nmob);
+        for(j=0; nmob[j]!='\0'; ++j)
+            UsersForm[countsee][2][j]=nmob[j];
+        for(i=0; i<6; ++i){
+            for(j=0; UsersForm[countsee][i][j]!='\0'; ++j){
+                printf("%c",UsersForm[countsee][i][j]);
+            }
+            printf("\t");
+        }
+        printf("Changes saved!");
+    }
+}
+////////////////////////////
+void transact(){
+    int money;
+    see();//deposite s7b withdraw eda3
+    printf("For deposit a money press 1,\nFor withdraw press 2 \n");
+    scanf("%d",&arr[0]);
+    Check();
+
+    if(arr[0]==1){//s7b
+        printf("please enter your money you want to deposit: \n");
+        scanf("%d",&money);
+        UsersFormmoney[countsee][0]+=money;
+        printf("your saved money %d \n",UsersFormmoney[countsee][0]);
+    }else {
+        printf("please enter your money you want to withdraw: \n");
+        scanf("%d",&money);
+        UsersFormmoney[countsee][0]-=money;
+        printf("your saved money is %d \n",UsersFormmoney[countsee][0]);
+    }
+}
+
+void sort(){
+
+    int i, k;
+    char names[countN][20];
+    char temp[1][20]={0,0};
+    for(i=0;i<=countN;i++)
+        strcpy(names[i],UsersForm[i][0]);
+    for(i=0;i<=countN;i++)
+      {
+          for(k=0;k<countN;k++)
+             if(strcmp(names[k],names[k+1])==1)
+             {
+                 strcpy(temp[0],names[k]);
+                 strcpy(names[k],names[k+1]);
+                 strcpy(names[k+1],temp[0]);
+             }
+  }
+    int sorted_index=0,users_index=0;
+    for (int k = 0; k <=countN ; ++k) {
+//      for (int j = 0; j <=countN ; ++j) {
+//          if(strcmp(names[]))
+//      }
+
+      while (strcmp(names[sorted_index],UsersForm[users_index])!=0)
+          users_index++;
+        sorted_index++;
+
+      for (i = 0; i < 6; ++i) {
+          for (int j = 0; UsersForm[users_index][i][j] != '\0'; ++j) {
+              printf("%c", UsersForm[users_index][i][j]);
+          }
+          printf("\t");
+      }
+      printf("%d\n", UsersFormmoney[users_index][0]);
+        users_index=0;
+  }
+}
+
